@@ -22,7 +22,7 @@ export default function Home() {
       <main className="w-full max-w-2xl overflow-hidden rounded-3xl bg-white shadow-xl dark:bg-zinc-900">
         {/* Header/Cover Area */}
         <div className="h-32 bg-gradient-to-r from-amber-200 to-yellow-500 dark:from-amber-900 dark:to-yellow-700" />
-        
+
         <div className="px-8 pb-12">
           {/* Profile Image Placeholder */}
           <div className="-mt-16 flex justify-center sm:justify-start">
