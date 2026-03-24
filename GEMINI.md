@@ -84,3 +84,8 @@ npm run lint
 - When modifying the application, ensure changes are made within the `my-profile` directory.
 - Adhere to the existing React 19 and Tailwind CSS 4 patterns.
 - Always verify changes by suggesting or running `npm run lint` and ensuring the build succeeds.
+
+
+1. 계획, 태스크, Walkthough는 항상 **한글**로 작성해줘.
+2. **항상 한국어로 대답해줘**
+3. 개발이 끝나고 난 후에는 빌드 명령어로 검증해줘.
