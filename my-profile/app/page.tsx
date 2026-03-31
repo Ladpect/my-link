@@ -5,12 +5,12 @@ import { Mail, MapPin, Sparkles, ExternalLink } from "lucide-react";
 
 export default function Home() {
   const profile = {
-    name: "John Doe",
+    name: "Ladpect",
     role: "Full-stack Developer",
     location: "Seoul, Korea",
     bio: "Passionate about building beautiful, accessible, and high-performance web applications. Currently focused on Next.js, React, and Tailwind CSS.",
     email: "hello@example.com",
-    github: "https://github.com",
+    github: "https://github.com/Ladpect",
     twitter: "https://twitter.com",
     linkedin: "https://linkedin.com",
     skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "PostgreSQL", "Framer Motion", "Git"],
@@ -27,135 +27,142 @@ export default function Home() {
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 20 } }
   };
 
-  const Card = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
+  interface CardProps {
+    children: React.ReactNode;
+    className?: string;
+    bgColor?: string;
+  }
+
+  const Card = ({ children, className = "", bgColor = "bg-white dark:bg-zinc-800" }: CardProps) => (
     <motion.div 
       variants={itemVariants}
-      className={`bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md border border-white/40 dark:border-white/10 rounded-3xl p-6 md:p-8 shadow-xl shadow-zinc-200/50 dark:shadow-black/50 overflow-hidden relative ${className}`}
+      className={`border-4 border-black dark:border-white shadow-[8px_8px_0px_#000] dark:shadow-[8px_8px_0px_#fff] p-6 md:p-8 relative ${bgColor} ${className}`}
     >
-      {/* Glossy reflection effect */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 dark:via-white/10 to-transparent"></div>
+      {className.includes('hover:') && (
+        <div className="absolute inset-0 bg-transparent transition-transform duration-200"></div>
+      )}
       {children}
     </motion.div>
   );
 
   return (
-    <div className="min-h-screen bg-[#f1f5f9] dark:bg-[#0a0a0a] selection:bg-indigo-500/30 text-zinc-900 dark:text-zinc-50 relative overflow-hidden flex items-center justify-center p-4 sm:p-8 md:p-12 font-sans">
-      {/* Background ambient gradients */}
-      <div className="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-500/20 dark:bg-indigo-600/20 blur-[120px] pointer-events-none" />
-      <div className="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-500/20 dark:bg-purple-600/20 blur-[120px] pointer-events-none" />
-
+    <div className="min-h-screen bg-[#f4f4f0] dark:bg-[#121212] text-black dark:text-white p-4 sm:p-8 md:p-12 font-mono selection:bg-pink-400 selection:text-black">
       <motion.main 
-        className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[minmax(120px,auto)] z-10"
+        className="w-full max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 auto-rows-[minmax(120px,auto)]"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         {/* Main Hero Card */}
-        <Card className="col-span-1 sm:col-span-2 md:col-span-2 row-span-2 flex flex-col justify-between group">
-          <div className="flex justify-between items-start mb-6">
-            <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/30 flex items-center justify-center text-3xl sm:text-4xl font-bold text-white relative overflow-hidden">
-               {profile.name.split(' ').map(n => n[0]).join('')}
-               <div className="absolute inset-0 bg-white/20 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full"></div>
+        <Card bgColor="bg-yellow-300 dark:bg-yellow-600/20" className="col-span-1 sm:col-span-2 md:col-span-2 row-span-2 flex flex-col justify-between group text-black dark:text-white">
+          <div className="flex flex-col sm:flex-row justify-between items-start mb-6 gap-4">
+            {/* 깃허브 프로필 사진 */}
+            <div className="h-24 w-24 sm:h-32 sm:w-32 border-4 border-black dark:border-white shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff] overflow-hidden bg-white shrink-0 self-start">
+               <img src="https://github.com/Ladpect.png" alt="Ladpect Profile" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" />
             </div>
-            <div className="flex items-center gap-2 bg-white/80 dark:bg-zinc-800/80 px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium border border-zinc-200 dark:border-zinc-700 shadow-sm">
-              <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+            
+            <div className="flex items-center gap-2 bg-white dark:bg-black px-4 py-2 border-2 border-black dark:border-white shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff] text-xs sm:text-sm font-bold uppercase tracking-wider whitespace-nowrap self-start">
+              <span className="h-3 w-3 border-2 border-black rounded-full bg-green-500 animate-pulse"></span>
               {profile.availability}
             </div>
           </div>
           <div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-zinc-900 to-zinc-600 dark:from-white dark:to-zinc-400">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tighter mb-2 break-all sm:break-normal">
               {profile.name}
             </h1>
-            <p className="text-lg sm:text-xl font-medium text-indigo-600 dark:text-indigo-400 mb-4">
+            <p className="text-xl sm:text-2xl font-bold bg-white dark:bg-black dark:text-white text-black leading-none inline-block px-2 py-1 border-2 border-black dark:border-white shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] mb-4">
               {profile.role}
             </p>
-            <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium max-w-sm">
+            <p className="text-sm sm:text-base font-medium leading-relaxed max-w-sm mt-4 border-l-4 border-black dark:border-white pl-4">
               {profile.bio}
             </p>
           </div>
         </Card>
 
-        {/* Location & Experience */}
-        <Card className="col-span-1 sm:col-span-2 md:col-span-2 row-span-1 flex items-center justify-between group">
-          <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-2xl bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <MapPin className="h-6 w-6" />
+        {/* Location Box */}
+        <Card bgColor="bg-blue-300 dark:bg-blue-800/40" className="col-span-1 sm:col-span-2 md:col-span-2 row-span-1 flex items-center group">
+          <div className="flex items-center gap-4 text-black dark:text-white w-full">
+            <div className="h-16 w-16 border-4 border-black dark:border-white shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff] bg-white dark:bg-black rounded-full flex items-center justify-center shrink-0 group-hover:rotate-12 transition-transform duration-300">
+              <MapPin className="h-8 w-8 stroke-[3]" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">Location</p>
-              <p className="text-lg font-bold">{profile.location}</p>
+              <p className="text-sm font-bold uppercase tracking-widest border-b-2 border-black dark:border-white inline-block mb-1">Base</p>
+              <p className="text-2xl sm:text-3xl font-black uppercase tracking-tight">{profile.location}</p>
             </div>
           </div>
         </Card>
 
         {/* Social Links */}
-        <a href={profile.github} target="_blank" rel="noopener noreferrer" className="block outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-3xl">
-          <Card className="col-span-1 row-span-1 flex flex-col items-center justify-center hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 transition-colors duration-300 cursor-pointer h-full group">
-            <GithubIcon className="h-8 w-8 mb-2 group-hover:scale-110 transition-transform duration-300" />
-            <span className="text-sm font-semibold">GitHub</span>
+        <a href={profile.github} target="_blank" rel="noopener noreferrer" className="block outline-none focus-visible:ring-4 focus-visible:ring-pink-500">
+          <Card bgColor="bg-white dark:bg-zinc-800" className="col-span-1 row-span-1 flex flex-col items-center justify-center cursor-pointer h-full group hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_#000] dark:hover:shadow-[12px_12px_0px_#fff] active:translate-y-1 active:translate-x-1 active:shadow-[4px_4px_0px_#000] dark:active:shadow-[4px_4px_0px_#fff] transition-all">
+            <GithubIcon className="h-10 w-10 mb-3 group-hover:scale-110 transition-transform duration-300 text-black dark:text-white" />
+            <span className="text-lg font-black uppercase text-black dark:text-white">GitHub</span>
           </Card>
         </a>
 
-        <a href={profile.twitter} target="_blank" rel="noopener noreferrer" className="block outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-3xl">
-          <Card className="col-span-1 row-span-1 flex flex-col items-center justify-center hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white transition-colors duration-300 cursor-pointer h-full group">
-            <TwitterIcon className="h-8 w-8 mb-2 group-hover:scale-110 transition-transform duration-300" />
-            <span className="text-sm font-semibold">Twitter</span>
+        <a href={profile.twitter} target="_blank" rel="noopener noreferrer" className="block outline-none focus-visible:ring-4 focus-visible:ring-pink-500">
+          <Card bgColor="bg-[#1DA1F2]" className="text-black col-span-1 row-span-1 flex flex-col items-center justify-center cursor-pointer h-full group hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_#000] dark:hover:shadow-[12px_12px_0px_#fff] active:translate-y-1 active:translate-x-1 active:shadow-[4px_4px_0px_#000] dark:active:shadow-[4px_4px_0px_#fff] transition-all">
+            <TwitterIcon className="h-10 w-10 mb-3 group-hover:scale-110 transition-transform duration-300" />
+            <span className="text-lg font-black uppercase">Twitter</span>
           </Card>
         </a>
 
         {/* Skills Bento Box */}
-        <Card className="col-span-1 sm:col-span-2 md:col-span-2 row-span-2 group">
-          <div className="flex items-center gap-2 mb-6 text-zinc-400 dark:text-zinc-500">
-            <Sparkles className="h-5 w-5 group-hover:text-amber-500 transition-colors" />
-            <h2 className="text-sm font-bold uppercase tracking-widest">Tech Stack</h2>
+        <Card bgColor="bg-pink-300 dark:bg-pink-800/40" className="col-span-1 sm:col-span-2 md:col-span-2 row-span-2 flex flex-col group text-black dark:text-white">
+          <div className="flex items-center gap-3 mb-6 bg-white dark:bg-black self-start px-4 py-2 border-2 border-black dark:border-white shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff]">
+            <Sparkles className="h-6 w-6 stroke-[3]" />
+            <h2 className="text-lg font-black uppercase tracking-widest">Tech Stack</h2>
           </div>
-          <div className="flex flex-wrap gap-2 sm:gap-3">
+          <div className="flex flex-wrap gap-3 sm:gap-4 mt-auto">
             {profile.skills.map((skill) => (
               <span
                 key={skill}
-                className="rounded-xl bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold shadow-sm hover:shadow-md hover:border-indigo-500 dark:hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all cursor-default relative overflow-hidden group/skill"
+                className="bg-white dark:bg-black border-2 border-black dark:border-white px-4 py-2 text-sm sm:text-base font-bold shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff] hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[6px_6px_0px_#000] dark:hover:shadow-[6px_6px_0px_#fff] active:translate-y-0.5 active:translate-x-0.5 active:shadow-[2px_2px_0px_#000] dark:active:shadow-[2px_2px_0px_#fff] transition-all cursor-default"
               >
-                <span className="relative z-10">{skill}</span>
-                <div className="absolute inset-0 bg-indigo-50 dark:bg-indigo-900/30 scale-y-0 group-hover/skill:scale-y-100 transition-transform origin-bottom"></div>
+                {skill}
               </span>
             ))}
           </div>
         </Card>
 
-        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="block outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-3xl">
-          <Card className="col-span-1 row-span-1 flex flex-col items-center justify-center hover:bg-blue-700 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-colors duration-300 cursor-pointer h-full group">
-            <LinkedinIcon className="h-8 w-8 mb-2 group-hover:scale-110 transition-transform duration-300" />
-            <span className="text-sm font-semibold">LinkedIn</span>
+        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="block outline-none focus-visible:ring-4 focus-visible:ring-pink-500">
+          <Card bgColor="bg-[#0A66C2]" className="text-white dark:text-white col-span-1 row-span-1 flex flex-col items-center justify-center cursor-pointer h-full group hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_#000] dark:hover:shadow-[12px_12px_0px_#fff] active:translate-y-1 active:translate-x-1 active:shadow-[4px_4px_0px_#000] dark:active:shadow-[4px_4px_0px_#fff] transition-all">
+            <LinkedinIcon className="h-10 w-10 mb-3 group-hover:scale-110 transition-transform duration-300 fill-white" />
+            <span className="text-lg font-black uppercase">LinkedIn</span>
           </Card>
         </a>
 
-        <a href={`mailto:${profile.email}`} className="block outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-3xl">
-          <Card className="col-span-1 row-span-1 flex flex-col items-center justify-center hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-600 dark:hover:text-white transition-colors duration-300 cursor-pointer h-full group">
-            <Mail className="h-8 w-8 mb-2 group-hover:scale-110 transition-transform duration-300" />
-            <span className="text-sm font-semibold">Email</span>
+        <a href={`mailto:${profile.email}`} className="block outline-none focus-visible:ring-4 focus-visible:ring-pink-500">
+          <Card bgColor="bg-green-400 dark:bg-green-700/60" className="col-span-1 row-span-1 flex flex-col items-center justify-center cursor-pointer h-full group hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_#000] dark:hover:shadow-[12px_12px_0px_#fff] active:translate-y-1 active:translate-x-1 active:shadow-[4px_4px_0px_#000] dark:active:shadow-[4px_4px_0px_#fff] transition-all text-black dark:text-white">
+            <Mail className="h-10 w-10 mb-3 group-hover:scale-110 transition-transform duration-300 stroke-[3]" />
+            <span className="text-lg font-black uppercase">Email</span>
           </Card>
         </a>
 
         {/* Footer / CTA Box */}
-        <Card className="col-span-1 sm:col-span-2 md:col-span-4 row-span-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-0 !p-1 group flex flex-col sm:flex-row items-center justify-between sm:!p-2">
-            <div className="w-full text-center sm:text-left sm:pl-8 py-4 sm:py-0">
-               <p className="text-lg sm:text-xl font-bold mb-1">Ready to build something amazing?</p>
-               <p className="text-indigo-100 text-sm font-medium">Let's collaborate on your next big project.</p>
-            </div>
-            <a href={`mailto:${profile.email}`} className="w-full sm:w-auto mt-2 sm:mt-0 bg-white text-indigo-600 hover:bg-indigo-50 px-8 py-4 rounded-2xl font-bold text-base transition-all flex items-center justify-center gap-2 group-hover:scale-[1.02] active:scale-95 shadow-xl shadow-indigo-900/20">
-              Start a Conversation <ExternalLink className="h-5 w-5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
-            </a>
-        </Card>
+        <a href={`mailto:${profile.email}`} className="col-span-1 sm:col-span-2 md:col-span-4 row-span-1 block outline-none focus-visible:ring-4 focus-visible:ring-pink-500 group mt-4 sm:mt-0">
+          <Card bgColor="bg-[#ff4f00] dark:bg-[#e64600]" className="w-full text-black dark:text-white h-full flex flex-col sm:flex-row items-center justify-between group-hover:-translate-y-1 group-hover:-translate-x-1 group-hover:shadow-[12px_12px_0px_#000] dark:group-hover:shadow-[12px_12px_0px_#fff] transition-all">
+              <div className="w-full text-center sm:text-left py-4 sm:py-0">
+                 <p className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-2 border-b-4 border-black dark:border-white inline-block">Need a Developer?</p>
+                 <p className="text-lg font-bold">Let's build something brutally good.</p>
+              </div>
+              <div className="w-full sm:w-auto mt-4 sm:mt-0 bg-white dark:bg-black text-black dark:text-white border-4 border-black dark:border-white shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff] px-8 py-4 font-black uppercase text-xl flex items-center justify-center gap-3 transition-all">
+                Hire Me <ExternalLink className="h-6 w-6 stroke-[3]" />
+              </div>
+          </Card>
+        </a>
 
         {/* Global Footer */}
-        <div className="col-span-1 sm:col-span-2 md:col-span-4 flex justify-center mt-4">
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 font-medium">
-            © {new Date().getFullYear()} {profile.name}. Crafted with Next.js, Tailwind v4 & Framer Motion.
-          </p>
+        <div className="col-span-1 sm:col-span-2 md:col-span-4 flex justify-center mt-8 mb-4">
+          <div className="bg-white dark:bg-black border-2 border-black dark:border-white shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff] px-6 py-3">
+             <p className="text-sm font-bold uppercase tracking-widest text-black dark:text-white flex items-center gap-2">
+               © {new Date().getFullYear()} {profile.name} <span className="inline-block w-2 h-2 bg-black dark:bg-white rounded-full"></span> Brutal UX
+             </p>
+          </div>
         </div>
       </motion.main>
     </div>
